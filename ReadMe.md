@@ -6,7 +6,7 @@ Paste any HTML, run an audit, and get plain-English fixes with before/after code
 mapped to WCAG success criteria. It also catches problems that automated tools
 miss, such as placeholder-only form fields and clickable `<div>` "buttons".
 
-**[Live demo](https://github.com/Jyoshna-15/AllyFixer/)** | Built with HTML, CSS, JavaScript and axe-core
+**[Live demo](https://ally-fixer-alpha.vercel.app/)** | [Source code](https://github.com/Jyoshna-15/AllyFixer) | Built with HTML, CSS, JavaScript and axe-core
 
 ![A11y Fixer showing audit results]
 
