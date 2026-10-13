@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>A11y Fixer – Web Accessibility Audit Tool</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to main content</a>
+
+  <header>
+    <h1>A11y Fixer</h1>
+    <p>Paste HTML, run an audit, and get plain-English fixes for WCAG issues.</p>
+  </header>
+
+  <main id="main">
+    <section aria-labelledby="input-heading">
+      <h2 id="input-heading">1. Your HTML</h2>
+      <label for="html-input">HTML to audit</label>
+      <textarea id="html-input" rows="10"></textarea>
+
+      <div class="actions">
+        <label for="sample-select">Load a sample</label>
+        <select id="sample-select">
+          <option value="">Choose a sample…</option>
+          <option value="form">Sign-up form</option>
+          <option value="gallery">Image gallery</option>
+        </select>
+        <button id="audit-btn" type="button">Run audit</button>
+      </div>
+    </section>
+
+    <section aria-labelledby="results-heading">
+      <h2 id="results-heading">2. Results</h2>
+      <p id="summary" role="status"></p>
+      <ul id="results" class="results"></ul>
+    </section>
+
+    <section aria-labelledby="preview-heading">
+      <h2 id="preview-heading">3. Preview</h2>
+      <iframe id="preview" title="Preview of the pasted HTML"
+        sandbox="allow-scripts allow-same-origin"></iframe>
+    </section>
+  </main>
+<script src="fixes.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
