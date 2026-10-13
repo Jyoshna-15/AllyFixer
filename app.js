@@ -19,7 +19,8 @@ const auditBtn = document.getElementById("audit-btn");
 const summary = document.getElementById("summary");
 const resultsList = document.getElementById("results");
 const frame = document.getElementById("preview");
-
+const manualSummary = document.getElementById("manual-summary");
+const manualList = document.getElementById("manual-results");
 select.addEventListener("change", () => {
   if (select.value) input.value = samples[select.value];
 });
@@ -27,9 +28,12 @@ select.addEventListener("change", () => {
 auditBtn.addEventListener("click", async () => {
   summary.textContent = "Running audit…";
   resultsList.innerHTML = "";
+  manualSummary.textContent = "";
+  manualList.innerHTML = "";
   try {
     const results = await runAudit(input.value);
     renderResults(results);
+    renderManual(runManualChecks(frame.contentDocument));
   } catch (err) {
     summary.textContent = "Audit failed: " + err.message;
   }
@@ -125,5 +129,55 @@ function renderResults(results) {
 
     li.append(title, meta, fix, compare, details, link);
     resultsList.appendChild(li);
+  });
+}
+
+
+function renderManual(findings) {
+  manualSummary.textContent = findings.length
+    ? `${findings.length} extra issue type(s) found that automated tools usually miss.`
+    : "No extra issues found by the manual checks. Still test with a keyboard and a screen reader.";
+
+  findings.forEach((f) => {
+    const li = document.createElement("li");
+    li.className = "card " + f.impact;
+
+    const title = document.createElement("h3");
+    title.textContent = f.help;
+
+    const meta = document.createElement("p");
+    meta.className = "meta";
+    meta.textContent = `Impact: ${f.impact} | WCAG: ${f.wcag} | Check: ${f.id} | Found on ${f.nodes.length} element(s)`;
+
+    const fix = document.createElement("p");
+    fix.className = "fix";
+    fix.textContent = "How to fix: " + f.plain;
+
+    const test = document.createElement("p");
+    test.className = "test";
+    test.textContent = "How to test by hand: " + f.test;
+
+    const compare = document.createElement("div");
+    compare.className = "compare";
+
+    const before = document.createElement("div");
+    before.className = "before";
+    const bl = document.createElement("h4");
+    bl.textContent = "Before (your code)";
+    const bc = document.createElement("pre");
+    bc.textContent = f.nodes.slice(0, 3).join("\n");
+    before.append(bl, bc);
+
+    const after = document.createElement("div");
+    after.className = "after";
+    const al = document.createElement("h4");
+    al.textContent = "After (suggested fix)";
+    const ac = document.createElement("pre");
+    ac.textContent = f.good;
+    after.append(al, ac);
+
+    compare.append(before, after);
+    li.append(title, meta, fix, test, compare);
+    manualList.appendChild(li);
   });
 }

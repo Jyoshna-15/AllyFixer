@@ -37,13 +37,21 @@
       <ul id="results" class="results"></ul>
     </section>
 
+    <section aria-labelledby="manual-heading">
+      <h2 id="manual-heading">Manual checks (what axe misses)</h2>
+      <p id="manual-summary" role="status"></p>
+      <ul id="manual-results" class="results"></ul>
+    </section>
+
     <section aria-labelledby="preview-heading">
       <h2 id="preview-heading">3. Preview</h2>
       <iframe id="preview" title="Preview of the pasted HTML"
         sandbox="allow-scripts allow-same-origin"></iframe>
     </section>
   </main>
-<script src="fixes.js"></script>
+
+  <script src="fixes.js"></script>
+  <script src="manual.js"></script>
   <script src="app.js"></script>
 </body>
 </html>

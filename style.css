@@ -16,3 +16,4 @@ button { background: var(--accent); color: #fff; border: 0; padding: .6rem 1.2re
 .card.moderate { border-left-color: #b58900; }
 pre { background: #f4f4f4; padding: .75rem; overflow-x: auto; }
 iframe { width: 100%; height: 250px; border: 2px solid var(--border); }
+.test { background: #eef4ff; border-left: 4px solid #0b57d0; padding: .5rem .75rem; font-size: .95rem; }
