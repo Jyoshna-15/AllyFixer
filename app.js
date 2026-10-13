@@ -1,4 +1,4 @@
-const AXE_URL = "https://cdnjs.cloudflare.com/ajax/libs/axe-core/4.10.2/axe.min.js";
+const AXE_URL = "https://cdn.jsdelivr.net/npm/axe-core@4.13.0/axe.min.js";
 
 const samples = {
   form: `<h1>Sign up</h1>
@@ -21,6 +21,7 @@ const resultsList = document.getElementById("results");
 const frame = document.getElementById("preview");
 const manualSummary = document.getElementById("manual-summary");
 const manualList = document.getElementById("manual-results");
+
 select.addEventListener("change", () => {
   if (select.value) input.value = samples[select.value];
 });
@@ -94,8 +95,10 @@ function renderResults(results) {
     const beforeLabel = document.createElement("h4");
     beforeLabel.textContent = "Before (your code)";
     const beforeCode = document.createElement("pre");
+    beforeCode.tabIndex = 0;
+    beforeCode.setAttribute("aria-label", "Code before fix");
     beforeCode.textContent = issue.nodes.slice(0, 3).map((n) => n.html).join("\n");
-        if (issue.nodes[0].html.startsWith("<html")) {
+    if (issue.nodes[0].html.startsWith("<html")) {
       beforeCode.textContent = "Page-level issue: it applies to the whole document, not one element.";
     }
     before.append(beforeLabel, beforeCode);
@@ -108,6 +111,8 @@ function renderResults(results) {
       const afterLabel = document.createElement("h4");
       afterLabel.textContent = "After (suggested fix)";
       const afterCode = document.createElement("pre");
+      afterCode.tabIndex = 0;
+      afterCode.setAttribute("aria-label", "Code after fix");
       afterCode.textContent = info.good;
       after.append(afterLabel, afterCode);
       compare.append(after);
@@ -131,7 +136,6 @@ function renderResults(results) {
     resultsList.appendChild(li);
   });
 }
-
 
 function renderManual(findings) {
   manualSummary.textContent = findings.length
@@ -165,6 +169,8 @@ function renderManual(findings) {
     const bl = document.createElement("h4");
     bl.textContent = "Before (your code)";
     const bc = document.createElement("pre");
+    bc.tabIndex = 0;
+    bc.setAttribute("aria-label", "Code before fix");
     bc.textContent = f.nodes.slice(0, 3).join("\n");
     before.append(bl, bc);
 
@@ -173,6 +179,8 @@ function renderManual(findings) {
     const al = document.createElement("h4");
     al.textContent = "After (suggested fix)";
     const ac = document.createElement("pre");
+    ac.tabIndex = 0;
+    ac.setAttribute("aria-label", "Code after fix");
     ac.textContent = f.good;
     after.append(al, ac);
 
