@@ -28,10 +28,13 @@ const FIXES = {
     good: `<label for="email">Email</label>
 <input id="email" type="email">`
   },
-  "color-contrast": {
-    plain: "The text is too faint against its background. Normal text needs a contrast ratio of at least 4.5:1.",
+   "color-contrast": {
+    plain: "The text is too faint against its background. Normal text needs a contrast ratio of at least 4.5:1 (3:1 for large text). Darken the text or lighten the background.",
     wcag: "1.4.3 Contrast (Minimum)",
-    good: `.hint { color: #595959; } /* 7:1 on white */`
+    good: `/* Before: #ffffff on #cccccc = 1.6:1 */
+/* After:  #1a1a1a on #ffffff = 17:1 */
+color: #1a1a1a;
+background: #ffffff;`
   },
   "document-title": {
     plain: "The page has no title. Screen reader users hear the title first, and it labels the browser tab.",

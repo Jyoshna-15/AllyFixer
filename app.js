@@ -91,6 +91,9 @@ function renderResults(results) {
     beforeLabel.textContent = "Before (your code)";
     const beforeCode = document.createElement("pre");
     beforeCode.textContent = issue.nodes.slice(0, 3).map((n) => n.html).join("\n");
+        if (issue.nodes[0].html.startsWith("<html")) {
+      beforeCode.textContent = "Page-level issue: it applies to the whole document, not one element.";
+    }
     before.append(beforeLabel, beforeCode);
 
     compare.append(before);
